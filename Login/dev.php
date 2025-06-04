@@ -51,6 +51,9 @@ unset($_SESSION['error']);
 
       <div class="input_enviar">
         <input  id="Login" type="submit" value="CADASTRAR" />
+        <a id="exit" style="  text-decoration: none;
+          color: rgb(0, 0, 0);  " href="logout.php">Sair
+        </a>
       </div>
     </form>
   </main>

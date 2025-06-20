@@ -95,7 +95,6 @@ try {
             <div id="container_table">
                 <table id="table" border="0">
                     <tbody id="tbody">
-                        <table border="1"  >
                             <thead id="thead" >
                                 <tr>
                                     <th>ID</th>
@@ -118,19 +117,19 @@ try {
                                         <td><?= $func['salario'] ?></td>
                                         <td>
                                         <a href="../controllers/edit.php?id_up=<?= $func['id']?>">
-                                            <img src="" alt="Edit" width="16" height="16">
+                                            <img src="../assets/images/edit.png" alt="Edit" width="16" height="16">
                                         </a>
 
-                                        <a href="../controllers/delete.php?id=<?= $func['id'] ?>"            onclick="return confirm('Tem certeza que deseja excluir este funcionário?');">
-                                            <img src="#" alt="Delete" width="16" height="16">
+                                        <a href="../controllers/delete.php?id=<?= $func['id'] ?>"onclick="return confirm('Tem certeza que deseja excluir este funcionário?');">
+                                            <img src="../assets/images/delete.png" alt="Delete" width="16" height="16">
                                         </a>
 
                                         </td>
-
+                                    </tr>
 
                                 <?php endforeach; ?>
                             </tbody>
-                        </table>
+
                     </tbody>
                 </table>
             </div>

@@ -5,15 +5,13 @@ if (!isset($_SESSION['id_usuario'])) {
     header("Location: ../Login.php");
     exit();
 }
-?>
 
-<?php
 require_once '../includes/conexao.php';
 
 try {
-    $sql = "SELECT id, produto, quantidade, motivo, data_queima, responsavel FROM queimas";
+    $sql = "SELECT id, nome, descricao, peso, dimensoes FROM estoque";
     $stmt = $conexao->query($sql);
-    $queimas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $estoque = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Erro ao buscar funcionários: " . $e->getMessage());
 }
@@ -27,8 +25,8 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/queimas.css">
-    <title>Queimas</title>
+    <link rel="stylesheet" href="../assets/css/funcionarios.css">
+    <title>Estoque</title>
 </head>
 <body>
     <header id="header" >
@@ -80,12 +78,12 @@ try {
     <main>
         <section id="section_up" >
             <div id="container_h1" >
-                <h1>QUEIMAS</h1>
+                <h1>ESTOQUE</h1>
             </div>
 
             <div id="container_btn" >
                 <div id="container_link" >
-                    <a href="create_queimas.php">CADASTRAR</a>
+                    <a href="create_estoque.php">CADASTRAR</a>
                 </div>
             </div>
 
@@ -95,42 +93,40 @@ try {
             <div id="container_table">
                 <table id="table" border="0">
                     <tbody id="tbody">
-                        <table border="1"  >
                             <thead id="thead" >
                                 <tr>
                                     <th>ID</th>
-                                    <th>Produto</th>
-                                    <th>Quantidade</th>
-                                    <th>Motivo</th>
-                                    <th>Data</th>
-                                    <th>Responsavel</th>
-                                    <th>Ações</th>
+                                    <th>Nome</th>
+                                    <th>DESCRIÇÃO</th>
+                                    <th>PESO</th>
+                                    <th>DIMENSÕES</th>
+                                    <th>AÇÕES</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody" >
-                                <?php foreach ($queimas as $quei): ?>
+                                <?php foreach ($estoque as $esto): ?>
                                     <tr>
-                                        <td><?= $quei['id'] ?></td>
-                                        <td><?= $quei['produto'] ?></td>
-                                        <td><?= $quei['quantidade']?></td>
-                                        <td><?= $quei['motivo'] ?></td>
-                                        <td><?= $quei['data_queima'] ?></td>
-                                        <td><?= $quei['responsavel'] ?></td>
-                                        <td id="td_buttons" >
-                                        <a href="../controllers/edit_quei.php?id_qm=<?= $quei['id']?>">
-                                            <img src="" alt="Edit" width="16" height="16">
-                                        </a>
+                                        <td><?= $esto['id'] ?></td>
+                                        <td><?= $esto['nome'] ?></td>
+                                        <td><?= $esto['descricao']?></td>
+                                        <td><?= $esto['peso'] ?></td>
+                                        <td><?= $esto['dimensoes'] ?></td>
+                                        <td id="box_images" >
+                                            <a  id="link_edit" href="../controllers/edit_esto.php?id_esto=<?= $esto['id']?>">
+                                                <img src="../assets/images/edit.png" alt="Edit" width="16" height="16">
+                                            </a>
 
-                                        <a href="../controllers/delete.php?id_qm=<?= $quei['id'] ?>"            onclick="return confirm('Tem certeza que deseja excluir este funcionário?');">
-                                            <img src="#" alt="Delete" width="16" height="16">
-                                        </a>
+                                            <a id="link_delete" href="../controllers/delete.php?id_estoque=<?= $esto['id'] ?>"
+                                            onclick="return confirm('Tem certeza que deseja excluir este funcionário?');">
+                                            <img src="../assets/images/delete.png" alt="Delete" width="16" height="16">
+                                            </a>
 
                                         </td>
 
+                                    </tr>
 
                                 <?php endforeach; ?>
                             </tbody>
-                        </table>
                     </tbody>
                 </table>
             </div>

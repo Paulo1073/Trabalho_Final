@@ -11,9 +11,9 @@ if (!isset($_SESSION['id_usuario'])) {
 require_once '../includes/conexao.php';
 
 try {
-    $sql = "SELECT id, nome, descricao, peso, dimensoes FROM estoque";
+    $sql = "SELECT id, produto, quantidade, motivo, data_queima, responsavel FROM queimas";
     $stmt = $conexao->query($sql);
-    $estoque = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $queimas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Erro ao buscar funcionários: " . $e->getMessage());
 }
@@ -27,8 +27,8 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/funcionarios.css">
-    <title>Estoque</title>
+    <link rel="stylesheet" href="../assets/css/queimas.css">
+    <title>Queimas</title>
 </head>
 <body>
     <header id="header" >
@@ -80,12 +80,12 @@ try {
     <main>
         <section id="section_up" >
             <div id="container_h1" >
-                <h1>ESTOQUE</h1>
+                <h1>QUEIMAS</h1>
             </div>
 
             <div id="container_btn" >
                 <div id="container_link" >
-                    <a href="create_estoque.php">CADASTRAR</a>
+                    <a href="create_queimas.php">CADASTRAR</a>
                 </div>
             </div>
 
@@ -99,29 +99,30 @@ try {
                             <thead id="thead" >
                                 <tr>
                                     <th>ID</th>
-                                    <th>Nome</th>
-                                    <th>DESCRIÇÃO</th>
-                                    <th>PESO</th>
-                                    <th>DIMENSÕES</th>
-                                    <th>AÇÕES</th>
+                                    <th>Produto</th>
+                                    <th>Quantidade</th>
+                                    <th>Motivo</th>
+                                    <th>Data</th>
+                                    <th>Responsavel</th>
+                                    <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody" >
-                                <?php foreach ($estoque as $esto): ?>
+                                <?php foreach ($queimas as $quei): ?>
                                     <tr>
-                                        <td><?= $esto['id'] ?></td>
-                                        <td><?= $esto['nome'] ?></td>
-                                        <td><?= $esto['descricao']?></td>
-                                        <td><?= $esto['peso'] ?></td>
-                                        <td><?= $esto['dimensoes'] ?></td>
-                                        <td>
-                                        <a href="../controllers/edit_esto.php?id_esto=<?= $esto['id']?>">
-                                            <img src="../assets/images/edit.png" alt="Edit" width="16" height="16">
+                                        <td><?= $quei['id'] ?></td>
+                                        <td><?= $quei['produto'] ?></td>
+                                        <td><?= $quei['quantidade']?></td>
+                                        <td><?= $quei['motivo'] ?></td>
+                                        <td><?= $quei['data_queima'] ?></td>
+                                        <td><?= $quei['responsavel'] ?></td>
+                                        <td id="td_buttons" >
+                                        <a href="../controllers/edit_quei.php?id_qm=<?= $quei['id']?>">
+                                            <img src="" alt="Edit" width="16" height="16">
                                         </a>
 
-                                        <a href="../controllers/delete.php?id_estoque=<?= $esto['id'] ?>"
-                                        onclick="return confirm('Tem certeza que deseja excluir este funcionário?');">
-                                        <img src="../assets/images/delete.png" alt="Delete" width="16" height="16">
+                                        <a href="../controllers/delete.php?id_qm=<?= $quei['id'] ?>"            onclick="return confirm('Tem certeza que deseja excluir este funcionário?');">
+                                            <img src="#" alt="Delete" width="16" height="16">
                                         </a>
 
                                         </td>
